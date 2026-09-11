@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vietnam, September 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0b0d10;
+    --surface: #14171b;
+    --surface-2: #1b1f24;
+    --hairline: rgba(237,234,226,0.09);
+    --text: #edeae2;
+    --text-dim: #9a9d9f;
+    --gold: #d9a441;
+    --jade: #5c7d68;
+    --radius: 2px;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+
+  html{ scroll-behavior:smooth; }
+
+  body{
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection{ background: var(--gold); color:#14171b; }
+
+  h1,h2,h3,.serif{ font-family: 'Fraunces', serif; font-weight: 400; letter-spacing: -0.01em; }
+
+  a{ color: inherit; }
+
+  /* ---------- NAV ---------- */
+  nav{
+    position: fixed; top:0; left:0; right:0; z-index: 50;
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 22px 6vw;
+    backdrop-filter: blur(14px) saturate(140%);
+    background: rgba(11,13,16,0.55);
+    border-bottom: 1px solid transparent;
+    transition: border-color .4s ease;
+  }
+  nav.scrolled{ border-bottom-color: var(--hairline); }
+  .brand{ font-family:'Fraunces', serif; font-size: 1.05rem; letter-spacing: 0.02em; }
+  .brand span{ color: var(--gold); }
+  .daynav{ display:flex; gap: 28px; font-size: 0.82rem; color: var(--text-dim); }
+  .daynav a{ text-decoration:none; transition: color .25s ease; }
+  .daynav a:hover, .daynav a.active{ color: var(--text); }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    height: 100svh; min-height: 560px; position: relative;
+    display:flex; flex-direction:column; justify-content:flex-end;
+    padding: 0 6vw 8vh;
+    overflow:hidden;
+    background:
+      radial-gradient(ellipse 90% 70% at 30% 15%, rgba(92,125,104,0.28), transparent 60%),
+      radial-gradient(ellipse 70% 60% at 80% 85%, rgba(217,164,65,0.14), transparent 60%),
+      linear-gradient(180deg, #0b0d10 0%, #101317 60%, #0b0d10 100%);
+  }
+  .hero::after{
+    content:""; position:absolute; inset:0;
+    background-image: repeating-linear-gradient(0deg, rgba(255,255,255,0.015) 0px, transparent 1px, transparent 2px);
+    pointer-events:none;
+  }
+  .hero-eyebrow{
+    font-size: 0.78rem; color: var(--gold); letter-spacing: 0.14em;
+    margin-bottom: 22px; opacity:0; animation: rise .9s ease forwards .15s;
+  }
+  .hero h1{
+    font-size: clamp(2.6rem, 7vw, 5.4rem); line-height: 1.02;
+    max-width: 14ch;
+    opacity:0; animation: rise 1s ease forwards .3s;
+  }
+  .hero-sub{
+    margin-top: 26px; max-width: 46ch; color: var(--text-dim);
+    font-size: 1.02rem;
+    opacity:0; animation: rise 1s ease forwards .5s;
+  }
+  @keyframes rise{ from{ opacity:0; transform: translateY(18px);} to{ opacity:1; transform:none;} }
+
+  /* ---------- LAYOUT ---------- */
+  main{ max-width: 980px; margin: 0 auto; padding: 0 6vw; }
+
+  .day{ padding-top: 140px; scroll-margin-top: 90px; }
+  .day-head{
+    display:flex; align-items:baseline; gap: 18px; margin-bottom: 8px;
+    border-bottom: 1px solid var(--hairline); padding-bottom: 28px;
+  }
+  .day-num{ font-family:'Fraunces', serif; font-size: 0.95rem; color: var(--gold); }
+  .day-title{ font-size: clamp(1.8rem, 3.4vw, 2.6rem); }
+  .day-meta{ margin-left:auto; font-size: 0.85rem; color: var(--text-dim); text-align:right; }
+
+  /* ---------- TIMELINE ---------- */
+  .timeline{ position:relative; margin-top: 50px; padding-left: 32px; }
+  .timeline::before{
+    content:""; position:absolute; left:5px; top:6px; bottom:6px; width:1px;
+    background: linear-gradient(var(--hairline), var(--hairline));
+  }
+  .moment{ position:relative; margin-bottom: 84px; }
+  .moment::before{
+    content:""; position:absolute; left:-32px; top:6px; width:9px; height:9px;
+    border-radius:50%; background: var(--bg); border: 1px solid var(--gold);
+  }
+  .moment-time{ font-size: 0.78rem; color: var(--gold); letter-spacing:0.08em; margin-bottom: 10px; }
+  .moment h3{ font-size: 1.5rem; margin-bottom: 14px; }
+  .moment p{ color: var(--text-dim); max-width: 62ch; font-size: 0.98rem; }
+  .moment p + p{ margin-top: 12px; }
+
+  /* ---------- PHOTO GRID ---------- */
+  .frames{
+    display:grid; grid-template-columns: repeat(6,1fr); gap: 10px;
+    margin-top: 26px;
+  }
+  .frame{
+    position:relative; overflow:hidden; border-radius: var(--radius);
+    background: var(--surface); aspect-ratio: 4/5;
+    border: 1px solid var(--hairline);
+  }
+  .frame.wide{ grid-column: span 4; aspect-ratio: 16/10; }
+  .frame.tall{ grid-column: span 2; }
+  .frame.third{ grid-column: span 2; }
+  .frame.half{ grid-column: span 3; }
+  .frame img{
+    width:100%; height:100%; object-fit: cover; display:block;
+    filter: saturate(0.96) contrast(1.02);
+    transition: transform .8s cubic-bezier(.2,.8,.2,1);
+  }
+  .frame:hover img{ transform: scale(1.035); }
+  .frame .cap{
+    position:absolute; left:0; right:0; bottom:0; padding: 14px 16px;
+    font-size: 0.76rem; color: var(--text-dim);
+    background: linear-gradient(0deg, rgba(0,0,0,0.55), transparent);
+    opacity:0; transition: opacity .3s ease;
+  }
+  .frame:hover .cap{ opacity:1; }
+
+  /* placeholder state (shown if image fails to load / not yet supplied) */
+  .frame.missing{
+    display:flex; align-items:flex-end;
+    background:
+      linear-gradient(135deg, rgba(92,125,104,0.16), rgba(217,164,65,0.08));
+  }
+  .frame.missing::before{
+    content: attr(data-label);
+    position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    text-align:center; padding: 18px; font-size: 0.82rem; color: var(--text-dim);
+    font-style: italic;
+  }
+  .frame img.hidden{ display:none; }
+
+  .frame video{
+    width:100%; height:100%; object-fit: cover; display:block;
+  }
+  .frame .play-badge{
+    position:absolute; top:12px; right:12px; width:26px; height:26px;
+    border-radius:50%; background: rgba(11,13,16,0.55); backdrop-filter: blur(4px);
+    display:flex; align-items:center; justify-content:center; pointer-events:none;
+  }
+  .frame .play-badge svg{ width:9px; height:9px; margin-left:1px; }
+
+  .badge-birthday{
+    display:inline-flex; align-items:center; gap:8px;
+    font-size: 0.78rem; color: var(--gold); letter-spacing: 0.06em;
+    margin-top: 10px;
+  }
+
+  @media (max-width: 720px){
+    .frames{ grid-template-columns: repeat(2,1fr); }
+    .frame.wide, .frame.half{ grid-column: span 2; }
+    .frame.tall, .frame.third{ grid-column: span 1; }
+    .day{ padding-top: 90px; }
+    .day-head{ flex-wrap:wrap; }
+    .day-meta{ margin-left:0; text-align:left; }
+  }
+
+  footer{
+    margin-top: 160px; padding: 70px 6vw 90px;
+    border-top: 1px solid var(--hairline);
+    color: var(--text-dim); font-size: 0.85rem;
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:20px;
+  }
+  footer .serif{ color: var(--text); }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="brand"><a href="../index.html" style="color:inherit;text-decoration:none;">Tango Travels</a> <span>·</span> Việt Nam</div>
+  <div class="daynav">
+    <a href="#day1" class="active">Day 1</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-eyebrow">ĐÀ NẴNG — HỘI AN</div>
+  <h1>A week through<br>central Vietnam.</h1>
+  <p class="hero-sub">Marble caves, lantern rivers, and everything eaten along the way — starting, as it happens, on a birthday.</p>
+</header>
+
+<main>
+
+  <!-- ===================== DAY 1 ===================== -->
+  <section class="day" id="day1">
+    <div class="day-head">
+      <span class="day-num">Day One</span>
+      <h2 class="day-title">Marble Mountains &amp; Lantern River</h2>
+      <div class="day-meta">Đà Nãng → Hội An<br>Landing day <span style="color:var(--gold)">· Kavya's birthday 🎂</span></div>
+    </div>
+
+    <div class="timeline">
+
+      <div class="moment">
+        <div class="moment-time">MORNING — ARRIVAL</div>
+        <h3>Marble Mountains</h3>
+        <p>Landed in Đà Nẵng and went straight to the Marble Mountains. Rode the elevator up, then explored the caves and pagodas on foot — a five-tiered pagoda rising out of the trees, a cavern lined with hundreds of small Buddhist figures, a soaring natural skylight overhead, and a stone Buddha seated in a mossy hollow.</p>
+        <p>Walked back down. Tiring, but one of the most beautiful starts to a trip.</p>
+        <div class="frames">
+          <div class="frame wide"><img src="images/IMG_8070.jpeg" alt="Five-tiered pagoda above the tree line" onerror="this.classList.add('hidden'); this.parentElement.classList.add('missing')" data-label="Pagoda tower photo — IMG_8070"><span class="cap">Pagoda rising above the hillside</span></div>
+          <div class="frame tall"><img src="images/IMG_8071.jpeg" alt="Stone Buddha in a cave hollow" onerror="this.classList.add('hidden'); this.parentElement.classList.add('missing')" data-label="Buddha in the cave — IMG_8071"><span class="cap">Buddha, carved into the rock</span></div>
+          <div class="frame third"><img src="images/IMG_8067.jpeg" alt="Wall of small Buddhist figures inside the cave" onerror="this.classList.add('hidden'); this.parentElement.classList.add('missing')" data-label="Cave shrine wall — IMG_8067"><span class="cap">Thousand-figure shrine wall</span></div>
+          <div class="frame third"><img src="images/IMG_8062.jpeg" alt="Cave skylight and rock formations" onerror="this.classList.add('hidden'); this.parentElement.classList.add('missing')" data-label="Cave ceiling / skylight — IMG_8062"><span class="cap">Light through the cave ceiling</span></div>
+        </div>
+      </div>
+
+      <div class="moment">
+        <div class="moment-time">MIDDAY — CHECK-IN</div>
+        <h3>Bel Marina had a surprise waiting</h3>
+        <p>Checked into the hotel — Bel Marina — to find the room done up for the occasion: rose petals, a towel cake, and "Happy Birthday Kavya" spelled out across the bed.</p>
+        <div class="badge-birthday">🎂 Kavya's birthday, day one of the trip</div>
+        <div class="frames">
+          <div class="frame wide"><img src="images/IMG_8072.jpeg" alt="Birthday towel cake and rose petals spelling Happy Birthday Kavya on the hotel bed" onerror="this.classList.add('hidden'); this.parentElement.classList.add('missing')" data-label="Birthday surprise, Bel Marina — IMG_8072"><span class="cap">Bel Marina's birthday setup</span></div>
+        </div>
+      </div>
+
+      <div class="moment">
+        <div class="moment-time">LUNCH</div>
+        <h3>Pancakes, then Bánh Mì Madam Khánh</h3>
+        <p>Lunch was at a local spot for bánh xèo (pancake), spring rolls and skewers, then bánh mì at Madam Khánh — "the Queen" — which lived up to its name.</p>
+        <div class="frames">
+          <div class="frame half" data-label="Lunch spread — pancake, spring rolls, skewers"></div>
+          <div class="frame half"><img src="images/IMG_8075.jpeg" alt="Eating banh mi at Madam Khanh" onerror="this.classList.add('hidden'); this.parentElement.classList.add('missing')" data-label="Bánh mì at Madam Khánh — IMG_8075"><span class="cap">The bánh mì that earned the name</span></div>
+        </div>
+      </div>
+
+      <div class="moment">
+        <div class="moment-time">AFTERNOON</div>
+        <h3>A nap, then the river</h3>
+        <p>A well-earned afternoon nap, then out to the river for a lantern boat ride under Hội An's glowing bridges — one of the most photogenic hours of the day.</p>
+        <div class="frames">
+          <div class="frame wide"><img src="images/IMG_8085.jpeg" alt="Lantern-lit bridge over the Hoi An river at night" onerror="this.classList.add('hidden'); this.parentElement.classList.add('missing')" data-label="Lantern bridge, Hội An — IMG_8085"><span class="cap">The lantern bridge, from the boat</span></div>
+          <div class="frame half">
+            <video src="images/lantern-boat.mp4" muted loop playsinline preload="metadata" onmouseover="this.play()" onmouseout="this.pause()" ontouchstart="this.play()"></video>
+            <span class="play-badge"><svg viewBox="0 0 10 10" fill="var(--text)"><polygon points="0,0 10,5 0,10"/></svg></span>
+            <span class="cap">The boat ride, on the river</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="moment">
+        <div class="moment-time">EVENING</div>
+        <h3>A beer, then the best scallops</h3>
+        <p>A pint at the Irish pub with a live band playing — a toast to the birthday. Dinner after at an Argentinian steakhouse — El Gaucho — for what might be the best scallops yet, alongside a good bottle of wine.</p>
+        <div class="frames">
+          <div class="frame half">
+            <video src="images/toast.mp4" muted loop playsinline preload="metadata" onmouseover="this.play()" onmouseout="this.pause()" ontouchstart="this.play()"></video>
+            <span class="play-badge"><svg viewBox="0 0 10 10" fill="var(--text)"><polygon points="0,0 10,5 0,10"/></svg></span>
+            <span class="cap">A birthday toast at the pub</span>
+          </div>
+          <div class="frame half"><img src="images/IMG_8091.jpeg" alt="Seared scallops and beef carpaccio at El Gaucho" onerror="this.classList.add('hidden'); this.parentElement.classList.add('missing')" data-label="Scallops, El Gaucho — IMG_8091"><span class="cap">Scallops at El Gaucho</span></div>
+        </div>
+      </div>
+
+      <div class="moment">
+        <div class="moment-time">NIGHT</div>
+        <h3>Foot massage &amp; the market</h3>
+        <p>A foot massage to close things out, then a slow walk through the night market before sleep — the end of a very full birthday.</p>
+        <div class="frames">
+          <div class="frame wide" data-label="Foot massage / night market — photos to add"></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="serif">Việt Nam, September 2026</div>
+  <div>Đà Nẵng · Hội An — Day 1 of the trip</div>
+</footer>
+
+<script>
+  // nav scroll state
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // convert placeholder frames (no <img> or <video>) into missing state on load
+  document.querySelectorAll('.frame:not(:has(img)):not(:has(video))').forEach(f => f.classList.add('missing'));
+</script>
+
+</body>
+</html>
